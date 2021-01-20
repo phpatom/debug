@@ -3,33 +3,33 @@
 
 namespace Atom\Debug;
 
-use Atom\App\App;
-use Atom\App\Contracts\ServiceProviderContract;
+use Atom\Kernel\Kernel;
+use Atom\Kernel\Contracts\ServiceProviderContract;
 use Atom\DI\Exceptions\CircularDependencyException;
 use Atom\DI\Exceptions\ContainerException;
 use Atom\DI\Exceptions\NotFoundException;
 use Atom\DI\Exceptions\StorageNotFoundException;
 use Atom\Web\Exceptions\RequestHandlerException;
-use Atom\Web\WebApp;
+use Atom\Web\Application;
 use InvalidArgumentException;
 
 class DebugBar implements ServiceProviderContract
 {
     /**
-     * @param App $app
+     * @param Kernel $app
      * @throws CircularDependencyException
      * @throws ContainerException
      * @throws NotFoundException
      * @throws StorageNotFoundException
      * @throws RequestHandlerException
      */
-    public function register(App $app)
+    public function register(Kernel $app)
     {
         if (!$app->env()->isDev() && !($app->env()->get("APP_DEBUG"))) {
             return;
         }
-        if (!($app instanceof WebApp)) {
-            throw new InvalidArgumentException("Debug bar can only be use with WebApp");
+        if (!($app instanceof Application)) {
+            throw new InvalidArgumentException("Debug bar can only be use with Application");
         }
         $debugBar = $app->container()->get(AtomDebugBar::class);
         $app->container()->singletons()->bindInstance($debugBar);

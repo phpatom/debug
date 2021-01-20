@@ -11,7 +11,7 @@ use Atom\Event\Exceptions\ListenerAlreadyAttachedToEvent;
 use Atom\Web\Events\MiddlewareLoaded;
 use Atom\Debug\Collectors\MiddlewareCollector;
 use Atom\Debug\Listeners\MiddlewareLoadedListener;
-use Atom\Web\WebApp;
+use Atom\Web\Application;
 use DebugBar\DebugBarException;
 use DebugBar\StandardDebugBar;
 
@@ -19,7 +19,7 @@ class AtomDebugBar extends StandardDebugBar
 {
     /**
      * AtomDebugBar constructor.
-     * @param WebApp $app
+     * @param Application $app
      * @throws DebugBarException
      * @throws CircularDependencyException
      * @throws ContainerException
@@ -27,7 +27,7 @@ class AtomDebugBar extends StandardDebugBar
      * @throws StorageNotFoundException
      * @throws ListenerAlreadyAttachedToEvent
      */
-    public function __construct(WebApp $app)
+    public function __construct(Application $app)
     {
         parent::__construct();
 
